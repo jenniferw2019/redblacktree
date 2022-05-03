@@ -69,7 +69,16 @@ void visualize(node* root, int level)
 	{
 	  cout << '\t';
 	}
-      cout << root->data << "(" << root->color << ")" << "/";
+      cout << root->data;
+      if (root->color == black)
+	{
+	  cout << "(Black)";
+	}
+      else
+	{
+	  cout << "(Red)";
+	}
+      cout << "|";
       if (root->parent != NULL)
 	{
 	  cout << (root->parent)->data << endl;
@@ -79,5 +88,129 @@ void visualize(node* root, int level)
 	  cout << endl;
 	}
       visualize(root->left, level + 1);
+    }
+}
+
+node* search(node* root, node* parent, node* current, int searchNum)
+{
+  if (current == NULL)
+    {
+      return NULL;
+    }
+  else if (current->data == searchNum)
+    {
+      return current;
+    }
+  else
+    {
+      parent = current;
+      if (parent->data < searchNum)
+	{
+	  current = current->right;
+	}
+      else
+	{
+	  current = current->left;
+	}
+      return search(root, parent, current, searchNum);
+    }
+}
+
+node* getParent(node* root, node* current, node* previous, node* lookParent)
+{
+  if (root == lookParent)
+    {
+      return NULL;
+    }
+  else if (current == lookParent)
+    {
+      return previous;
+    }
+  else
+    {
+      previous = current;
+      if(previous->data < lookParent->data)
+	{
+	  current = current->right;
+	}
+      else
+	{
+	  current = current->left;
+	}
+      return getParent(root, current, previous, lookParent);
+    }
+}
+
+void treeRotationRight(node* &root, node* subRoot)
+{
+  node* rootParent = subRoot->parent;
+  node* leftChild = subRoot->left;
+  node* grandChild;
+  if (leftChild != NULL)
+    {
+      grandChild = leftChild->right;
+    }
+  subRoot->left = grandChild;
+  if (grandChild != NULL)
+    {
+      grandChild->parent = subRoot;
+    }
+
+  leftChild->right = subRoot;
+  subRoot->parent = leftChild;
+
+  if (rootParent != NULL)
+    {
+      if (rootParent->right == subRoot)
+	{
+	  rootParent->right = leftChild;
+	}
+      else
+	{
+	  rootParent->left = leftChild;
+	  leftChild->parent = rootParent;
+	}
+    }
+  else
+    {
+      root = leftChild;
+      root->parent = NULL;
+    }
+}
+
+void treeRotationLeft(node* &root, node* subRoot)
+{
+  node* rootParent = subRoot->parent;
+  node* rightChild = subRoot->right;
+  node* grandChild;
+  if (rightChild != NULL)
+    {
+      grandChild = rightChild->left;
+    }
+  subRoot->right = grandChild;
+  if (grandChild != NULL)
+    {
+      grandChild->parent = subRoot;
+    }
+
+  rightChild->left = subRoot;
+  subRoot->parent = rightChild;
+
+  if (rootParent != NULL)
+    {
+      if (rootParent->left == subRoot)
+	{
+	  rootParent->left = rightChild;
+	}
+      else
+	{
+	  rootParent->right = rightChild;
+	  rightChild->parent = rootParent;
+	}
+    }
+  else
+    {
+      root = rightChild;
+      root->parent = NULL;
     }
 }
