@@ -80,12 +80,16 @@ int main()
 	  
 	  insert(Tree, Tree, Tree, numInput);
 	  //print(Tree);
-	  visualize(Tree, 0);
+	  //visualize(Tree, 0);
+	  node* searchNode;
+	  searchNode = search(Tree, Tree, Tree, numInput);
+	  updateTree(Tree, searchNode);
 	}
       else if (strcmp(option, "VISUALIZE") == 0)
 	{
 	  visualize(Tree, 0);
 	}
+      /*
       else if (strcmp(option, "ROTATE") == 0)
 	{
 	  int searchNumber = 0;
@@ -112,6 +116,7 @@ int main()
 	      cout << "number is not in tree" << endl;
 	    }
 	}
+      */
       else if (strcmp(option, "QUIT") == 0)
 	{
 	  runProgram = false;

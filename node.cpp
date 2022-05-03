@@ -72,11 +72,11 @@ void visualize(node* root, int level)
       cout << root->data;
       if (root->color == black)
 	{
-	  cout << "(Black)";
+	  cout << "(B)";
 	}
       else
 	{
-	  cout << "(Red)";
+	  cout << "(R)";
 	}
       cout << "|";
       if (root->parent != NULL)
@@ -213,4 +213,59 @@ void treeRotationLeft(node* &root, node* subRoot)
       root = rightChild;
       root->parent = NULL;
     }
+}
+
+void updateTree(node* &root, node* n)
+{
+  node* parent;
+  node* grandParent;
+  node* uncle;
+  node* child;
+
+  if (n == root)
+    {
+      n->color = black;
+    }
+  else // n!= root
+    {
+      do {
+	parent = n->parent;
+	if (parent->color == black) // case 1: parent color is black
+	  {
+	    return;
+	  }
+	else //parent color == red
+	  {
+	    grandParent = parent->parent;
+	    if (grandParent == NULL) // case 2: parent is red root
+	      {
+		parent->color = black;
+		return;
+	      }
+	    else //grandparent != NULL
+	      {
+		if (parent == grandParent->left)
+		  {
+		    uncle = grandParent->right;
+		  }
+		else
+		  {
+		    uncle = grandParent->left;
+		  }
+		if (parent->color == red || uncle->color == red) // case 3: parent and uncle are red
+		  {
+		    parent->color = black;
+		    uncle->color = black;
+		    grandParent->color = red;
+		    n = grandParent;
+		    parent = n->parent;
+		  }
+	      }//grandparent != NULL
+	    
+	  } //parent color == red
+	
+      } while (parent != NULL);
+
+      root->color = black;
+    } // n!= root
 }

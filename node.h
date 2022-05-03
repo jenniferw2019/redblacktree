@@ -25,4 +25,5 @@ node* search(node* root, node* parent, node* current, int searchNum);
 node* getParent(node* root, node* current, node* previous, node* lookParent);
 void treeRotationRight(node* &root,node* subRoot);
 void treeRotationLeft(node* &root, node* subRoot);
+void updateTree(node* &root, node* n);
 #endif
