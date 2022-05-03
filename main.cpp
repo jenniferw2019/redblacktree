@@ -19,7 +19,7 @@ int main()
 
   while (runProgram == true)
     {
-      cout << "Type ADD, READ, VISUALIZE, ROTATE, QUIT" << endl;
+      cout << "Type ADD, READ, VISUALIZE, QUIT" << endl;
       cin.get(option, 20);
       cin.get();
       
@@ -60,15 +60,17 @@ int main()
 	      token = strtok(NULL, " ");
 	      a = a + 1;
 	    }
-	  cout << "line 62" << endl;
 	  for (int i = 0; i < tokenCount; i++)
 	    {
 	      insert(Tree, Tree, Tree, numberArray[i]);
+	      node* searchNode;
+	      searchNode = search(Tree, Tree, Tree, numberArray[i]);
+	      updateTree(Tree, searchNode);
 	    }
 	  
 	  //print(Tree);
-	  cout << endl;
-	  visualize(Tree, 0);
+	  //cout << endl;
+	  //visualize(Tree, 0);
 	}
       
       else if (strcmp(option, "ADD") == 0)

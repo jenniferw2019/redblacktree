@@ -252,7 +252,7 @@ void updateTree(node* &root, node* n)
 		  {
 		    uncle = grandParent->left;
 		  }
-		if (parent->color == red || uncle->color == red) // case 3: parent and uncle are red
+		if (uncle != NULL && uncle->color == red) // case 3: parent and uncle are red
 		  {
 		    parent->color = black;
 		    uncle->color = black;
@@ -260,12 +260,46 @@ void updateTree(node* &root, node* n)
 		    n = grandParent;
 		    parent = n->parent;
 		  }
+		else //case 5 and 6: uncle is NULL or black
+		  {
+		    if (parent == grandParent->left) // case 5: parent is left of grandparent
+		      {
+			if (n == parent->right) //in line grandparent
+			  {
+			    treeRotationLeft(root, parent);
+			    node* temp = n;
+			    n = parent;
+			    parent = temp;
+			  }
+			treeRotationRight(root, grandParent); // out line grandparent
+			parent->color = black;
+			grandParent->color = red;
+			return;
+		      }
+		    else // case 6: parent is right of grandparent
+		      {
+			
+			if (n == parent->left) // in line grandparent
+			  {
+			    treeRotationRight(root, parent);
+			    node* temp = n;
+			    n = parent;
+			    parent = temp;
+			  }
+			treeRotationLeft(root, grandParent); //out line grandparent
+			parent->color = black;
+			grandParent->color = red;
+			return;
+		      }
+		    
+		  } //uncle is NULL or black
 	      }//grandparent != NULL
 	    
 	  } //parent color == red
 	
       } while (parent != NULL);
 
-      root->color = black;
+      root->color = black; // case 4: n ia red root
+      
     } // n!= root
 }
