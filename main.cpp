@@ -1,3 +1,10 @@
+/*
+This program allows the user to enter a number into the red black tree with the console or 
+read in a string of numbers with a file. 
+The user can visualize the tree that shows the number, color, and parent. 
+Author: Jennifer Wang
+5/5/22
+ */
 #include "node.h"
 #include <fstream>
 #include <cstring>
@@ -19,10 +26,12 @@ int main()
 
   while (runProgram == true)
     {
+      //ask user to add a number, read in from file, visualize tree, or end program
       cout << "Type ADD, READ, VISUALIZE, QUIT" << endl;
       cin.get(option, 20);
       cin.get();
-      
+
+      //if read, read in number from a file
       if (strcmp(option, "READ") == 0)
 	{
 	  ifstream file ("file.txt", ifstream::in);
@@ -67,12 +76,9 @@ int main()
 	      searchNode = search(Tree, Tree, Tree, numberArray[i]);
 	      updateTree(Tree, searchNode);
 	    }
-	  
-	  //print(Tree);
-	  //cout << endl;
-	  //visualize(Tree, 0);
 	}
-      
+
+      //if add, add a number in from console
       else if (strcmp(option, "ADD") == 0)
 	{	
 	  int numInput = 0;
@@ -81,44 +87,18 @@ int main()
 	  cin.get();
 	  
 	  insert(Tree, Tree, Tree, numInput);
-	  //print(Tree);
-	  //visualize(Tree, 0);
 	  node* searchNode;
 	  searchNode = search(Tree, Tree, Tree, numInput);
 	  updateTree(Tree, searchNode);
 	}
+
+      //if visualize, visualize the tree
       else if (strcmp(option, "VISUALIZE") == 0)
 	{
 	  visualize(Tree, 0);
 	}
-      /*
-      else if (strcmp(option, "ROTATE") == 0)
-	{
-	  int searchNumber = 0;
-	  node* result;
-	  node* parent;
-	  cout << "Type a number to rotate" << endl;
-	  cin >> searchNumber;
-	  cin.get();
 
-	  result = search(Tree, Tree, Tree, searchNumber);
-	  
-	  if (result != NULL)
-	    {
-	      
-	      cout << "number is in tree" << endl;
-	      parent = getParent(Tree, Tree, Tree, result);
-	      if (parent != NULL)
-		{
-		  cout << parent->data << endl;
-		}
-	    }
-	  else
-	    {
-	      cout << "number is not in tree" << endl;
-	    }
-	}
-      */
+      //if quit, end program
       else if (strcmp(option, "QUIT") == 0)
 	{
 	  runProgram = false;

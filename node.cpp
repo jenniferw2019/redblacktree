@@ -1,10 +1,13 @@
+//cpp for node
 #include "node.h"
 #include <iostream>
 
 using namespace std;
 
+//create red black tree / insert value into tree
 void insert(node* &root, node* parent, node* current, int value)
 {
+  //new value becomes root of tree
   if (root == NULL)
     {
       node* newNode = new node();
@@ -15,6 +18,7 @@ void insert(node* &root, node* parent, node* current, int value)
       root->left = NULL;
       root->right = NULL;
     }
+  //adding value to end of tree
   else if (current == NULL)
     {
       node* newNode = new node();
@@ -50,6 +54,7 @@ void insert(node* &root, node* parent, node* current, int value)
     }
 }
 
+//print redblack tree numbers from smallest to largest
 void print(node* root)
 {
   if (root != NULL)
@@ -60,6 +65,7 @@ void print(node* root)
     }
 }
 
+//visualize red black tree
 void visualize(node* root, int level)
 {
   if (root != NULL)
@@ -91,6 +97,7 @@ void visualize(node* root, int level)
     }
 }
 
+//search for a specific value in tree
 node* search(node* root, node* parent, node* current, int searchNum)
 {
   if (current == NULL)
@@ -116,6 +123,7 @@ node* search(node* root, node* parent, node* current, int searchNum)
     }
 }
 
+//find parent of a node
 node* getParent(node* root, node* current, node* previous, node* lookParent)
 {
   if (root == lookParent)
@@ -141,6 +149,7 @@ node* getParent(node* root, node* current, node* previous, node* lookParent)
     }
 }
 
+//rotate to the right
 void treeRotationRight(node* &root, node* subRoot)
 {
   node* rootParent = subRoot->parent;
@@ -150,6 +159,7 @@ void treeRotationRight(node* &root, node* subRoot)
     {
       grandChild = leftChild->right;
     }
+  
   subRoot->left = grandChild;
   if (grandChild != NULL)
     {
@@ -164,6 +174,7 @@ void treeRotationRight(node* &root, node* subRoot)
       if (rootParent->right == subRoot)
 	{
 	  rootParent->right = leftChild;
+	  leftChild->parent = rootParent;
 	}
       else
 	{
@@ -178,6 +189,7 @@ void treeRotationRight(node* &root, node* subRoot)
     }
 }
 
+//rotate to the left
 void treeRotationLeft(node* &root, node* subRoot)
 {
   node* rootParent = subRoot->parent;
@@ -187,6 +199,8 @@ void treeRotationLeft(node* &root, node* subRoot)
     {
       grandChild = rightChild->left;
     }
+
+  //start rotating
   subRoot->right = grandChild;
   if (grandChild != NULL)
     {
@@ -201,6 +215,7 @@ void treeRotationLeft(node* &root, node* subRoot)
       if (rootParent->left == subRoot)
 	{
 	  rootParent->left = rightChild;
+	  rightChild->parent = rootParent;
 	}
       else
 	{
@@ -215,6 +230,7 @@ void treeRotationLeft(node* &root, node* subRoot)
     }
 }
 
+//update tree with different cases
 void updateTree(node* &root, node* n)
 {
   node* parent;

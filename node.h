@@ -1,3 +1,4 @@
+//header file for node
 #ifndef NODE_H
 #define NODE_H
 #include <iostream>
@@ -10,6 +11,7 @@ enum nodeColor {black, red};
 
 struct node
 {
+  //variables
   int data;
   nodeColor color;
   node* parent;
@@ -18,6 +20,7 @@ struct node
   
 };
 
+//function prototypes
 void insert(node* &root, node* parent, node* current, int value);
 void print(node* root);
 void visualize(node* root, int level);
